@@ -10,6 +10,10 @@
     <div class="card-header">
       <h4>{{entry.date_added|date:'M d, Y H:i'}}</h4>
       <a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit entry</a>
+      <form action="{% url 'learning_logs:delete_entry' entry.id %}" method="post">
+         {% csrf_token %}
+    <input type="submit" value="Удалить">
+      </form>
     </div>
     <div class="card-body">
       <p>{{entry.text|linebreaks}}</p>
