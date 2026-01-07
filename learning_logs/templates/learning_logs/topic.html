@@ -2,7 +2,7 @@
 <h3>{{topic}}</h3>
 <form action="{% url 'learning_logs:delete_topic' topic.id %}" method="post">
          {% csrf_token %}
-    <input type="submit" value="Удалить">
+    <input type="submit" value="Delete topic">
       </form>
 {% endblock page_header %} {% block content %}
 <p>
@@ -16,7 +16,7 @@
       <a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit entry</a>
       <form action="{% url 'learning_logs:delete_entry' entry.id %}" method="post">
          {% csrf_token %}
-    <input type="submit" value="Удалить">
+    <input type="submit" value="Delete entry">
       </form>
     </div>
     <div class="card-body">
