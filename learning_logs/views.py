@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect,get_list_or_404
+from django.shortcuts import render, redirect,get_object_or_404
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 from django.contrib.auth.decorators import login_required
@@ -18,7 +18,7 @@ def topics(request):
 
 @login_required
 def topic(request, topic_id):
-    topic : Topic = get_list_or_404(Topic, id=topic_id)
+    topic : Topic =get_object_or_404(Topic, id=topic_id)
     if not check_topic_owner(topic.owner, request.user):
         raise Http404
     
@@ -42,7 +42,7 @@ def new_topic(request):
 
 @login_required
 def new_entry(request, topic_id):
-    topic : Topic =  get_list_or_404(Topic, id=topic_id) 
+    topic : Topic = get_object_or_404(Topic, id=topic_id)
 
     if not check_topic_owner(topic.owner, request.user):
         raise Http404  
@@ -60,7 +60,7 @@ def new_entry(request, topic_id):
 
 @login_required
 def edit_entry(request, entry_id):
-    entry = get_list_or_404(Entry, id=entry_id)
+    entry = get_object_or_404(Entry, id=entry_id)
     topic = entry.topic
     if not check_topic_owner(topic.owner, request.user):
         raise Http404
