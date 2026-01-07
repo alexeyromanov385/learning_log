@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-bv_b%@tsx$s+0u#-&=4k+69ygp(t-df8%(f9lc*8zt38$*w@vt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 SECRET_KEY = os.environ.get('SECRET_KEY', 'ваш-секретный-ключ')
-ALLOWED_HOSTS = ['']
+# Разреши localhost
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+
+# Или для теста разреши всё (НЕ ДЛЯ ПРОДАКШЕНА!)
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
