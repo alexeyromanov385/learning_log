@@ -85,4 +85,15 @@ def delete_entry(request, entry_id):
         entry.delete()
         return redirect('learning_logs:topic', topic_id = topic.id)
     context = {'entry' : entry, 'topic' : topic,}
-    return render(request, 'learning_logs/topic.html', context)  
+    return render(request, 'learning_logs/topic.html', context)
+
+@login_required
+def delete_topic(request, topic_id):
+    topic = Topic.objects.get(id=topic_id)  
+    if not check_topic_owner(topic.owner, request.user):
+        raise Http404
+    if request.method == "POST":
+        topic.delete()
+        return redirect('learning_logs:topics')
+    context = {'topic' : topic}
+    return render(request,'learning_logs/topics.html', context)
