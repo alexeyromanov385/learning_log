@@ -7,7 +7,6 @@ from django.http import Http404
 def check_topic_owner(topic_user, request_user):
     return topic_user == request_user
         
-
 def index(request):
     return render(request, 'learning_logs/index.html')
 
