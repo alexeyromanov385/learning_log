@@ -13,11 +13,12 @@
   Private
 </div>
     {% endif %}
-
+{% if topic.owner == user %}
 <form action="{% url 'learning_logs:delete_topic' topic.id %}" method="post">
          {% csrf_token %}
     <input type="submit" value="Delete topic">
       </form>
+{% endif %}
 {% endblock page_header %} {% block content %}
 <p>
   <a href="{% url 'learning_logs:new_entry' topic.id %}">Add a new entry</a>
