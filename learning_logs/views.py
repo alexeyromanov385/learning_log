@@ -19,8 +19,8 @@ def topics(request):
 
 @login_required
 def topic(request, topic_id):
-    topic : Topic =get_object_or_404(Topic, id=topic_id)
-    if not check_topic_owner(topic.owner, request.user):
+    topic : Topic = get_object_or_404(Topic, id=topic_id)
+    if not check_topic_owner(topic.owner, request.user) and not topic.public:
         raise Http404
     
     entries = topic.entry_set.order_by('-date_added')

@@ -6,6 +6,7 @@
   <li>
     <h3>
       <a href="{% url 'learning_logs:topic' topic.id %}">{{topic}}</a>
+      {{ topic.date_added|date:'d.m.Y' }}
     </h3>
   </li>
   {% empty %}

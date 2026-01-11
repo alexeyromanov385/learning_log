@@ -1,5 +1,11 @@
 {% extends "learning_logs/base.html" %} {% block page_header %}
-<h3>{{topic}}</h3>
+<h1>{{topic}}</h1>
+<h3>{{topic.date_added|date:'M d, Y H:i'}}</h3>
+<div class="alert alert-primary" role="alert">
+  Made by {{topic.owner.username}}
+</div>
+
+
 <form action="{% url 'learning_logs:delete_topic' topic.id %}" method="post">
          {% csrf_token %}
     <input type="submit" value="Delete topic">
