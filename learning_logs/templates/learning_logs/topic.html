@@ -4,7 +4,15 @@
 <div class="alert alert-primary" role="alert">
   Made by {{topic.owner.username}}
 </div>
-
+ {% if topic.public %}
+<div class="alert alert-success" role="alert">
+    Public
+</div>
+  {% else %}
+  <div class="alert alert-danger" role="alert">
+  Private
+</div>
+    {% endif %}
 
 <form action="{% url 'learning_logs:delete_topic' topic.id %}" method="post">
          {% csrf_token %}
