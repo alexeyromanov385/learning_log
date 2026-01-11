@@ -3,6 +3,7 @@ from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
+from django.db.models import Q
 
 def check_topic_owner(topic_user, request_user):
     return topic_user == request_user
@@ -12,7 +13,7 @@ def index(request):
 
 @login_required
 def topics(request):
-    topics = Topic.objects.filter(owner = request.user).order_by('date_added')
+    topics = Topic.objects.filter(Q(owner=request.user) | Q(public=True)).order_by('date_added')
     context = {'topics' : topics}
     return render(request, 'learning_logs/topics.html', context)
 
@@ -96,3 +97,12 @@ def delete_topic(request, topic_id):
         return redirect('learning_logs:topics')
     context = {'topic' : topic}
     return render(request,'learning_logs/topics.html', context)
+
+@login_required
+def make_topic_public(request, topic_id):
+    topic = get_object_or_404(Topic, id=topic_id)
+    if not check_topic_owner(topic.owner, request.user):
+        raise Http404
+    topic.public = not topic.public
+    topic.save()  
+    return redirect('learning_logs:topic', topic_id=topic_id)
