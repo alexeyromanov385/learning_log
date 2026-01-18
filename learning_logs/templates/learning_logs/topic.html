@@ -21,7 +21,9 @@
 {% endif %}
 {% endblock page_header %} {% block content %}
 <p>
+  {% if topic.owner == user %}
   <a href="{% url 'learning_logs:new_entry' topic.id %}">Add a new entry</a>
+  {% endif %}
 </p>
 <ul>
   {% for entry in entries %}
