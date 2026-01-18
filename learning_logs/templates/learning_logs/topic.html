@@ -1,6 +1,9 @@
 {% extends "learning_logs/base.html" %} {% block page_header %}
 <h1>{{topic}}</h1>
 <h3>{{topic.date_added|date:'M d, Y H:i'}}</h3>
+<h4>
+    <a href="{% url 'learning_logs:edit_topic' topic.id %}">Edit topic</a>
+</h4>
 <div class="alert alert-primary" role="alert">
   Made by {{topic.owner.username}}
 </div>

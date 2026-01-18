@@ -12,4 +12,5 @@ urlpatterns = [
     path('delete_entry/<int:entry_id>', views.delete_entry, name= 'delete_entry'),
     path('delete_topic/<int:topic_id>', views.delete_topic, name='delete_topic'),
     path('topic/<int:topic_id>/make_public/', views.make_topic_public, name='make_public'),
+    path('topics/<int:topic_id>/edit_topic/', views.edit_topic, name='edit_topic'),
     ]

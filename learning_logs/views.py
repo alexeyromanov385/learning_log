@@ -106,3 +106,19 @@ def make_topic_public(request, topic_id):
     topic.public = not topic.public
     topic.save()  
     return redirect('learning_logs:topic', topic_id=topic_id)
+
+@login_required
+def edit_topic(request, topic_id):
+    topic = get_object_or_404(Topic, id=topic_id)
+    if not check_topic_owner(topic.owner, request.user):
+        raise Http404
+    if request.method == "POST":
+        form = TopicForm(instance = topic,data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('learning_logs:topic', topic_id = topic_id)
+    else:
+        form = TopicForm(instance=topic)    
+        context = {"form" : form, "topic" : topic}
+        return render(request, "learning_logs/edit_topic.html", context)
+    
